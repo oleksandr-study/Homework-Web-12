@@ -20,7 +20,7 @@ async def read_contacts_by_params(name: str = None, surname: str = None, email: 
     return contact
 
 
-@router.post("/", response_model=ContactResponse)
+@router.post("/", response_model=ContactResponse, status_code=status.HTTP_201_CREATED)
 async def create_contact(body: ContactModel, db: Session = Depends(get_db), current_user: User = Depends(auth_service.get_current_user)):
     return await repository_contacts.create_contact(body, db, current_user)
 
